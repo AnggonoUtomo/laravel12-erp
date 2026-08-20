@@ -1,0 +1,7 @@
+{
+    "name": "LoginActivities",
+    "namespace": "Console",
+    "title": "Login Activity",
+    "slug": "login-activities",
+    "architecture": "ddd-lite"
+}

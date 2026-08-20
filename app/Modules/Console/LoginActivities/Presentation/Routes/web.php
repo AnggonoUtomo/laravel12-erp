@@ -1,6 +1,6 @@
 <?php
 
-use App\Modules\Console\LoginActivities\Http\Controllers\LoginActivityController;
+use App\Modules\Console\LoginActivities\Presentation\Http\Controllers\LoginActivityController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {

@@ -1,6 +1,6 @@
 <?php
 
-use App\Modules\Console\LoginActivities\Providers\LoginActivitiesServiceProvider;
+use App\Modules\Console\LoginActivities\ServiceProvider;
 
 return [
     'name' => 'LoginActivities',
@@ -11,7 +11,7 @@ return [
     'version' => '1.0.0',
     'enabled' => true,
     'providers' => [
-        LoginActivitiesServiceProvider::class,
+        ServiceProvider::class,
     ],
     'dependencies' => [],
     'exports' => [

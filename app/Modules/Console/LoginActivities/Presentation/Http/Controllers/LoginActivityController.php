@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Modules\Console\LoginActivities\Http\Controllers;
+namespace App\Modules\Console\LoginActivities\Presentation\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Console\LoginActivities\Models\LoginActivity;
+use App\Modules\Console\LoginActivities\Infrastructure\Models\LoginActivity;
 use App\Modules\Console\SystemSettings\Application\Services\SystemSettingService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

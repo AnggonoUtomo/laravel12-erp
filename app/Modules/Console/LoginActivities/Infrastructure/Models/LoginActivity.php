@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Console\LoginActivities\Models;
+namespace App\Modules\Console\LoginActivities\Infrastructure\Models;
 
 use App\Models\User;
 use App\Models\Concerns\UsesSchemaAwareUlids;

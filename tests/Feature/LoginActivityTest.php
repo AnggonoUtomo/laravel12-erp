@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use App\Modules\Console\LoginActivities\Models\LoginActivity;
+use App\Modules\Console\LoginActivities\Infrastructure\Models\LoginActivity;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;

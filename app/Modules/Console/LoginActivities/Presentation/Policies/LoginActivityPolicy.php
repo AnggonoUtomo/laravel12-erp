@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Console\LoginActivities\Policies;
+namespace App\Modules\Console\LoginActivities\Presentation\Policies;
 
 use App\Models\User;
 

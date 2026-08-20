@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Modules\Console\LoginActivities\Services;
+namespace App\Modules\Console\LoginActivities\Application\Services;
 
 use App\Models\User;
-use App\Modules\Console\LoginActivities\Models\LoginActivity;
+use App\Modules\Console\LoginActivities\Infrastructure\Models\LoginActivity;
 use Illuminate\Http\Request;
 use Throwable;
 

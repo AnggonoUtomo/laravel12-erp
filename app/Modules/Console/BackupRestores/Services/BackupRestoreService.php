@@ -52,7 +52,6 @@ class BackupRestoreService
                 'path' => basename($path),
                 'database' => config('database.default'),
                 'storage_public_size' => $this->directorySize(storage_path('app/public')),
-                'storage_dms_private_size' => $this->directorySize(storage_path('app/private/document-management')),
             ],
         );
 

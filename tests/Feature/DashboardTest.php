@@ -27,28 +27,20 @@ class DashboardTest extends TestCase
             ->assertInertia(fn (Assert $page) => $page
                 ->component('console/dashboard')
                 ->has('dashboard.console')
-                ->has('dashboard.hr')
-                ->has('dashboard.dms')
                 ->has('dashboard.activity')
-                ->where('dashboard.access.hr', false)
                 ->where('dashboard.console.users', 0)
-                ->where('dashboard.hr.employees', 0)
             );
     }
 
     public function test_dashboard_metrics_respect_permissions()
     {
         Permission::findOrCreate('users.view');
-        Permission::findOrCreate('hr.view');
-        Permission::findOrCreate('document-management.view');
         Permission::findOrCreate('audit-logs.view');
         Permission::findOrCreate('login-activities.view');
 
         $role = Role::findOrCreate('dashboard-observer');
         $role->syncPermissions([
             'users.view',
-            'hr.view',
-            'document-management.view',
             'audit-logs.view',
             'login-activities.view',
         ]);
@@ -61,24 +53,9 @@ class DashboardTest extends TestCase
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
                 ->where('dashboard.access.console_admin', true)
-                ->where('dashboard.access.hr', true)
-                ->where('dashboard.access.dms', true)
                 ->where('dashboard.access.audit', true)
                 ->where('dashboard.access.login_activities', true)
                 ->where('dashboard.console.users', 1)
             );
-    }
-
-    public function test_authorized_users_can_visit_the_hr_dashboard()
-    {
-        Permission::findOrCreate('hr.view');
-        Role::findOrCreate('hr-viewer')->syncPermissions(['hr.view']);
-
-        $user = User::factory()->create();
-        $user->assignRole('hr-viewer');
-
-        $this->actingAs($user)
-            ->get('/hr/dashboard')
-            ->assertOk();
     }
 }

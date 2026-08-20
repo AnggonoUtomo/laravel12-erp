@@ -372,8 +372,8 @@
 
                     <div class="side-card">
                         <span>Project aktif</span>
-                        <strong>Console dan HR</strong>
-                        <p>Untuk HR, gunakan `/hr/login`, `/hr/dashboard`, atau `/hr/departements`.</p>
+                        <strong>Console</strong>
+                        <p>Gunakan launcher atau `/dashboard` untuk kembali ke Console.</p>
                     </div>
 
                     <div class="side-card">

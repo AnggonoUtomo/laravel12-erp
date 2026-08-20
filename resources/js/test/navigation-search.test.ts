@@ -19,24 +19,24 @@ const navigation: NavigationGroup[] = [
         ],
     },
     {
-        group: 'Employee',
+        group: 'Sistem',
         items: [
             {
-                title: 'Employee Onboardings',
-                url: '/hr/onboardings',
-                permissions: ['hr.onboardings.view'],
+                title: 'System Settings',
+                url: '/system-settings',
+                permissions: ['system-settings.view'],
                 children: [
                     {
-                        title: 'Onboarding Templates',
-                        url: '/hr/onboarding-templates',
-                        permissions: ['hr.onboarding-templates.view'],
+                        title: 'Notification Templates',
+                        url: '/notification-templates',
+                        permissions: ['notification-templates.view'],
                     },
                 ],
             },
             {
-                title: 'Employee Documents',
-                url: '/hr/employee-documents',
-                permissions: ['hr.employee-documents.view'],
+                title: 'Backup & Restore',
+                url: '/backup-restore',
+                permissions: ['backup-restore.view'],
             },
         ],
     },
@@ -47,27 +47,27 @@ describe('navigation search', () => {
         const results = buildNavigationSearchResults(navigation, {
             permissions: {
                 'users.view': true,
-                'hr.onboardings.view': true,
-                'hr.onboarding-templates.view': true,
+                'system-settings.view': true,
+                'notification-templates.view': true,
             },
         });
 
-        expect(results.map((result) => result.url)).toEqual(['/users', '/hr/onboardings', '/hr/onboarding-templates']);
-        expect(results.find((result) => result.url === '/hr/onboardings')).toMatchObject({
-            title: 'Onboarding Karyawan',
-            group: 'Karyawan',
+        expect(results.map((result) => result.url)).toEqual(['/users', '/system-settings', '/notification-templates']);
+        expect(results.find((result) => result.url === '/system-settings')).toMatchObject({
+            title: 'Pengaturan Sistem',
+            group: 'Sistem',
         });
-        expect(results.find((result) => result.url === '/hr/onboarding-templates')?.keywords).toContain('Template Onboarding');
+        expect(results.find((result) => result.url === '/notification-templates')?.keywords).toContain('Template Notifikasi');
     });
 
     it('excludes navigation without granted permissions', () => {
         const results = buildNavigationSearchResults(navigation, {
             permissions: {
-                'hr.employee-documents.view': true,
+                'backup-restore.view': true,
             },
         });
 
-        expect(results.map((result) => result.url)).toEqual(['/hr/employee-documents']);
+        expect(results.map((result) => result.url)).toEqual(['/backup-restore']);
         expect(results.map((result) => result.url)).not.toContain('/access-control');
     });
 
@@ -189,19 +189,19 @@ describe('navigation search', () => {
         const results = buildNavigationSearchResults(navigation, {
             permissions: {
                 'users.view': true,
-                'hr.onboardings.view': true,
-                'hr.onboarding-templates.view': true,
-                'hr.employee-documents.view': true,
+                'system-settings.view': true,
+                'notification-templates.view': true,
+                'backup-restore.view': true,
             },
         });
 
-        expect(filterNavigationSearchResults(results, 'karyawan').map((result) => result.url)).toEqual([
-            '/hr/employee-documents',
-            '/hr/onboardings',
-            '/hr/onboarding-templates',
+        expect(filterNavigationSearchResults(results, 'sistem').map((result) => result.url)).toEqual([
+            '/backup-restore',
+            '/system-settings',
+            '/notification-templates',
         ]);
         expect(filterNavigationSearchResults(results, 'User').map((result) => result.url)).toEqual(['/users']);
-        expect(filterNavigationSearchResults(results, 'templates').map((result) => result.url)).toEqual(['/hr/onboarding-templates']);
+        expect(filterNavigationSearchResults(results, 'templates').map((result) => result.url)).toEqual(['/notification-templates']);
     });
 
     it('ranks exact matches before prefix and contains matches deterministically', () => {

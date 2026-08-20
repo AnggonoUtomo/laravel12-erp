@@ -157,98 +157,6 @@ class SystemSettingTest extends TestCase
         ]);
     }
 
-    public function test_authorized_users_can_update_map_settings(): void
-    {
-        $user = User::factory()->create();
-        $user->assignRole('admin');
-
-        $this->actingAs($user)
-            ->put(route('system-settings.map.update'), [
-                'enabled' => true,
-                'google_maps_api_key' => 'AIza-test-key',
-                'google_maps_map_id' => 'starterkit-map-id',
-            ])
-            ->assertRedirect()
-            ->assertSessionHas('success');
-
-        $this->assertDatabaseHas('system_settings', [
-            'group' => 'map',
-            'key' => 'enabled',
-            'value' => '1',
-            'encrypted' => false,
-        ]);
-
-        $this->assertDatabaseHas('system_settings', [
-            'group' => 'map',
-            'key' => 'google_maps_api_key',
-            'encrypted' => true,
-        ]);
-
-        $storedApiKey = SystemSetting::query()
-            ->where('group', 'map')
-            ->where('key', 'google_maps_api_key')
-            ->firstOrFail();
-
-        $this->assertNotSame('AIza-test-key', $storedApiKey->value);
-        $this->assertSame('AIza-test-key', Crypt::decryptString($storedApiKey->value));
-
-        $this->assertDatabaseHas('system_settings', [
-            'group' => 'map',
-            'key' => 'google_maps_map_id',
-            'value' => 'starterkit-map-id',
-            'encrypted' => false,
-        ]);
-
-        $this->assertDatabaseHas('audit_logs', [
-            'actor_id' => $user->id,
-            'module' => 'system-settings',
-            'event' => 'map.updated',
-            'description' => 'Updated Google Maps configuration',
-        ]);
-
-        $audit = AuditLog::query()->where('event', 'map.updated')->firstOrFail();
-
-        $this->assertFalse(str_contains(json_encode($audit->new_values), 'AIza-test-key'));
-    }
-
-    public function test_map_api_key_is_masked_in_props_and_blank_update_keeps_existing_secret(): void
-    {
-        $user = User::factory()->create();
-        $user->assignRole('admin');
-
-        $this->actingAs($user)
-            ->put(route('system-settings.map.update'), [
-                'enabled' => true,
-                'google_maps_api_key' => 'AIza-existing-key',
-                'google_maps_map_id' => 'starterkit-map-id',
-            ])
-            ->assertRedirect();
-
-        $this->actingAs($user)
-            ->get(route('system-settings.index'))
-            ->assertOk()
-            ->assertInertia(fn (Assert $page) => $page
-                ->where('mapSettings.google_maps_api_key', null)
-                ->where('mapSettings.configured', true)
-                ->etc()
-            );
-
-        $this->actingAs($user)
-            ->put(route('system-settings.map.update'), [
-                'enabled' => true,
-                'google_maps_api_key' => '',
-                'google_maps_map_id' => 'updated-map-id',
-            ])
-            ->assertRedirect();
-
-        $storedApiKey = SystemSetting::query()
-            ->where('group', 'map')
-            ->where('key', 'google_maps_api_key')
-            ->firstOrFail();
-
-        $this->assertSame('AIza-existing-key', Crypt::decryptString($storedApiKey->value));
-    }
-
     public function test_authorized_users_can_update_security_policy(): void
     {
         $user = User::factory()->create();
@@ -481,7 +389,6 @@ class SystemSettingTest extends TestCase
             ['post', 'system-settings.email.test'],
             ['put', 'system-settings.localization.update'],
             ['put', 'system-settings.pagination.update'],
-            ['put', 'system-settings.map.update'],
             ['put', 'system-settings.security-policy.update'],
             ['put', 'system-settings.password-policy.update'],
             ['put', 'system-settings.maintenance-mode.update'],

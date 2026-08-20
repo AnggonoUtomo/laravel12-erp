@@ -89,17 +89,12 @@ class MakeModuleCommandTest extends TestCase
     public function test_it_preserves_acronyms_as_single_slug_segments(): void
     {
         $this->artisan('make:module', [
-            'name' => 'HRReferenceData',
-            '--project' => 'HR',
+            'name' => 'APIReferenceData',
+            '--project' => 'ERP',
         ])->assertSuccessful();
 
-        $this->assertFileExists($this->frontendRoot.'/hr/hr-reference-data/index.tsx');
-        $this->assertFileDoesNotExist($this->frontendRoot.'/hr/h-r-reference-data/index.tsx');
-    }
-
-    public function test_repository_does_not_keep_the_legacy_acronym_page(): void
-    {
-        $this->assertFileExists(resource_path('js/pages/hr/hr-reference-data/index.tsx'));
-        $this->assertFileDoesNotExist(resource_path('js/pages/hr/h-r-reference-data/index.tsx'));
+        $this->assertFileExists($this->frontendRoot.'/erp/api-reference-data/index.tsx');
+        $this->assertFileDoesNotExist($this->frontendRoot.'/e-r-p/api-reference-data/index.tsx');
+        $this->assertFileDoesNotExist($this->frontendRoot.'/erp/a-p-i-reference-data/index.tsx');
     }
 }

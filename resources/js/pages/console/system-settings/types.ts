@@ -8,7 +8,6 @@ export type SystemSettingSection =
     | 'security'
     | 'password'
     | 'maintenance'
-    | 'map'
     | 'health'
     | 'environment';
 
@@ -86,13 +85,6 @@ export type MaintenanceMode = {
     bypass_url: string | null;
 };
 
-export type MapSettings = {
-    enabled: boolean;
-    google_maps_api_key: string | null;
-    google_maps_map_id: string | null;
-    configured: boolean;
-};
-
 export type HealthStatus = 'ok' | 'warning' | 'error';
 
 export type SystemHealthCheck = {
@@ -145,7 +137,6 @@ export type SystemSettingsProps = {
     securityPolicy: SecurityPolicy;
     passwordPolicy: PasswordPolicy;
     maintenanceMode: MaintenanceMode;
-    mapSettings: MapSettings;
     systemHealth: SystemHealth;
     environmentInfo: EnvironmentInfo;
     can: {
@@ -218,12 +209,6 @@ export type MaintenanceModeForm = {
     retry_seconds: string;
     refresh_seconds: string;
     secret: string;
-};
-
-export type MapSettingForm = {
-    enabled: boolean;
-    google_maps_api_key: string;
-    google_maps_map_id: string;
 };
 
 export type TestEmailForm = {

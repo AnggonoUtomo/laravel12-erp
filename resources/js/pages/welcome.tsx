@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
-import { ArrowRight, Boxes, Building2, Database, LayoutDashboard, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Boxes, Database, LayoutDashboard, ShieldCheck } from 'lucide-react';
 
 type LoginDestination = {
     name: string;
@@ -26,16 +26,6 @@ const destinations: LoginDestination[] = [
         cardClassName: 'border-sky-800/70 bg-sky-950 text-white',
         iconClassName: 'border-white/15 bg-white/10 text-sky-100',
         buttonClassName: 'bg-sky-500 text-white hover:bg-sky-400',
-    },
-    {
-        name: 'Human Resources',
-        description: 'Data karyawan dan operasional HR.',
-        loginRoute: route('hr.login'),
-        dashboardRoute: route('hr.dashboard'),
-        icon: Building2,
-        cardClassName: 'border-emerald-800/70 bg-emerald-950 text-white',
-        iconClassName: 'border-white/15 bg-white/10 text-emerald-100',
-        buttonClassName: 'bg-emerald-500 text-white hover:bg-emerald-400',
     },
 ];
 
@@ -66,7 +56,7 @@ export default function Welcome() {
                         </p>
                     </div>
 
-                    <div className="mx-auto grid w-full max-w-md gap-4 sm:grid-cols-2">
+                    <div className="mx-auto grid w-full max-w-xs gap-4">
                         {destinations.map((destination) => {
                             const Icon = destination.icon;
                             const href = isAuthenticated ? destination.dashboardRoute : destination.loginRoute;

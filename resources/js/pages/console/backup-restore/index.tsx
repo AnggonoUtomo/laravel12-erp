@@ -76,7 +76,7 @@ export default function BackupRestore({ overview, can }: Props) {
                                     </span>
                                     Full Database / Server Backup
                                 </CardTitle>
-                                <CardDescription>Download ZIP berisi dump database, storage public, dan private DMS.</CardDescription>
+                                <CardDescription>Download ZIP berisi dump database dan storage public.</CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-5 p-5 sm:p-6">
                                 <div className="grid gap-3 sm:grid-cols-3">
@@ -154,7 +154,7 @@ export default function BackupRestore({ overview, can }: Props) {
                                             <span>
                                                 <span className="block font-medium">Restore Storage Files</span>
                                                 <span className="text-muted-foreground mt-1 block text-xs leading-relaxed">
-                                                    Memulihkan storage public dan private Document Management.
+                                                    Memulihkan file dari storage public.
                                                 </span>
                                             </span>
                                         </label>

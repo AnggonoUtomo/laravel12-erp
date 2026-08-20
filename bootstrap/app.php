@@ -5,7 +5,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
-use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -19,8 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'system-settings/*',
         ]);
 
-        $middleware->redirectGuestsTo(fn (Request $request) => $request->is('hr/*') ? route('hr.login') : route('login'));
-        $middleware->redirectUsersTo(fn (Request $request) => $request->is('hr/*') ? route('hr.dashboard') : route('dashboard'));
+        $middleware->redirectGuestsTo(fn () => route('login'));
+        $middleware->redirectUsersTo(fn () => route('dashboard'));
 
         $middleware->web(append: [
             HandleInertiaRequests::class,

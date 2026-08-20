@@ -7,7 +7,6 @@ use App\Modules\Console\SystemSettings\DTO\BrandingSettingData;
 use App\Modules\Console\SystemSettings\DTO\EmailSettingData;
 use App\Modules\Console\SystemSettings\DTO\LocalizationSettingData;
 use App\Modules\Console\SystemSettings\DTO\MaintenanceModeData;
-use App\Modules\Console\SystemSettings\DTO\MapSettingData;
 use App\Modules\Console\SystemSettings\DTO\PaginationSettingData;
 use App\Modules\Console\SystemSettings\DTO\PasswordPolicyData;
 use App\Modules\Console\SystemSettings\DTO\SecurityPolicyData;
@@ -38,8 +37,6 @@ class SystemSettingService
     private const PASSWORD_POLICY_GROUP = 'password_policy';
 
     private const MAINTENANCE_MODE_GROUP = 'maintenance_mode';
-
-    private const MAP_GROUP = 'map';
 
     private const BRANDING_ASSET_KEY = 'assets';
 
@@ -133,20 +130,10 @@ class SystemSettingService
     ];
 
     /**
-     * @var array<string, mixed>
-     */
-    private const MAP_DEFAULTS = [
-        'enabled' => false,
-        'google_maps_api_key' => null,
-        'google_maps_map_id' => null,
-    ];
-
-    /**
      * @var array<int, string>
      */
     private const ENCRYPTED_KEYS = [
         'password',
-        'google_maps_api_key',
         'secret',
     ];
 
@@ -598,52 +585,6 @@ class SystemSettingService
             description: 'Updated maintenance mode',
             oldValues: $oldValues,
             newValues: $this->maintenanceModeSettings(),
-        );
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function mapSettings(bool $includeSecret = false): array
-    {
-        $settings = $this->storedSettings(self::MAP_GROUP, self::MAP_DEFAULTS);
-        $settings['configured'] = filled($settings['google_maps_api_key']);
-
-        if (! $includeSecret) {
-            $settings['google_maps_api_key'] = null;
-        }
-
-        return $settings;
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function mapRuntimeSettings(): array
-    {
-        return $this->mapSettings(includeSecret: true);
-    }
-
-    public function updateMapSettings(MapSettingData $data): void
-    {
-        $oldValues = $this->mapSettings();
-
-        $this->transaction->run(function () use ($data) {
-            $this->put(self::MAP_GROUP, 'enabled', $data->enabled);
-
-            if (filled($data->googleMapsApiKey)) {
-                $this->put(self::MAP_GROUP, 'google_maps_api_key', $data->googleMapsApiKey, true);
-            }
-
-            $this->put(self::MAP_GROUP, 'google_maps_map_id', $data->googleMapsMapId);
-        });
-
-        $this->audit->record(
-            module: 'system-settings',
-            event: 'map.updated',
-            description: 'Updated Google Maps configuration',
-            oldValues: $oldValues,
-            newValues: $this->mapSettings(),
         );
     }
 

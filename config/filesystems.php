@@ -37,14 +37,6 @@ return [
             'throw' => false,
         ],
 
-        'dms-private' => [
-            'driver' => 'local',
-            'root' => storage_path('app/private/document-management'),
-            'serve' => false,
-            'visibility' => 'private',
-            'throw' => true,
-        ],
-
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

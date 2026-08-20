@@ -12,13 +12,19 @@ app/Modules/
     {Module}/
 ```
 
-Setiap module dapat menyediakan file berikut di root folder module:
+Module baru dari generator memakai DDD-lite. Kontrak runtime mendukung struktur target berikut:
 
 - `module.php` untuk metadata formal module.
-- `routes.php` untuk route milik module.
+- `module.json` untuk metadata yang mudah dibaca tooling.
+- `README.md` untuk ownership, kontrak publik, dan dependency module.
+- `Presentation/Routes/web.php` untuk route milik module.
+- `ServiceProvider.php` untuk binding dan bootstrapping module.
 - `permissions.php` untuk daftar permission dan default permission per role.
 - `navigation.php` untuk item sidebar/menu module.
-- `Providers/*ServiceProvider.php` untuk policy, gate, binding, event, dan bootstrapping module.
+
+Route loader memprioritaskan `Presentation/Routes/web.php`. `routes.php` tetap didukung sebagai fallback untuk modul legacy dan tidak akan dimuat bersamaan dengan route target.
+
+Generator tidak membuat `Infrastructure/Adapters` atau `Infrastructure/Integrations` secara kosong. Tambahkan keduanya hanya bila terdapat adapter atau integrasi nyata.
 
 File akan di-discover otomatis oleh `App\Support\Modules\ModuleServiceProvider` dan `App\Support\Modules\ModuleRegistry`, termasuk module yang berada di dalam `Console` atau project lain yang dibuat secara eksplisit.
 
@@ -50,6 +56,12 @@ Untuk membuat module di project/group lain:
 php artisan make:module WorkOrders --project=Operations
 ```
 
+Atau gunakan namespace dan module sebagai dua argumen:
+
+```bash
+php artisan make:module StudentManagement Student
+```
+
 Output backend akan dibuat di `app/Modules/Operations/WorkOrders`, sedangkan halaman Inertia awal dibuat di `resources/js/pages/operations/work-orders`.
 
 Aturan route generator:
@@ -70,7 +82,7 @@ Setiap perubahan pada generator, module contract, struktur folder, route convent
 Contoh `module.php`:
 
 ```php
-use App\Modules\Operations\WorkOrders\Providers\WorkOrdersServiceProvider;
+use App\Modules\Operations\WorkOrders\ServiceProvider;
 
 return [
     'name' => 'WorkOrders',
@@ -81,7 +93,7 @@ return [
     'version' => '1.0.0',
     'enabled' => true,
     'providers' => [
-        WorkOrdersServiceProvider::class,
+        ServiceProvider::class,
     ],
     'dependencies' => [],
     'exports' => [

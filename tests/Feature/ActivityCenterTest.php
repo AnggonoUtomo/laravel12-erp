@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use App\Modules\Console\AuditLogs\Models\AuditLog;
+use App\Modules\Console\AuditLogs\Infrastructure\Models\AuditLog;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;

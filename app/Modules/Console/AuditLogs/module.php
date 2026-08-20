@@ -1,6 +1,6 @@
 <?php
 
-use App\Modules\Console\AuditLogs\Providers\AuditLogsServiceProvider;
+use App\Modules\Console\AuditLogs\ServiceProvider;
 
 return [
     'name' => 'AuditLogs',
@@ -11,7 +11,7 @@ return [
     'version' => '1.0.0',
     'enabled' => true,
     'providers' => [
-        AuditLogsServiceProvider::class,
+        ServiceProvider::class,
     ],
     'dependencies' => [],
     'exports' => [

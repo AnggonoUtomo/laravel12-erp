@@ -2,7 +2,7 @@
 
 namespace App\Modules\Console\QueueMonitors\Services;
 
-use App\Modules\Console\SystemSettings\Services\SystemSettingService;
+use App\Modules\Console\SystemSettings\Application\Services\SystemSettingService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator as Paginator;

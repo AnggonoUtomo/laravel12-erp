@@ -2,7 +2,7 @@
 
 namespace App\Modules\Console\NotificationTemplates\Services;
 
-use App\Modules\Console\AuditLogs\Services\AuditLogService;
+use App\Modules\Console\AuditLogs\Application\Services\AuditLogService;
 use App\Modules\Console\NotificationTemplates\Models\NotificationTemplate;
 use Illuminate\Support\Collection;
 

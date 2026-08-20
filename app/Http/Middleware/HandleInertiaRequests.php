@@ -4,8 +4,8 @@ namespace App\Http\Middleware;
 
 use App\Models\User;
 use App\Modules\Console\ActivityCenters\Services\ActivityCenterService;
-use App\Modules\Console\SystemSettings\Services\SystemSettingService;
-use App\Modules\Console\UserManagements\Services\UserImpersonationService;
+use App\Modules\Console\SystemSettings\Application\Services\SystemSettingService;
+use App\Modules\Console\UserManagements\Application\Services\UserImpersonationService;
 use App\Support\Modules\ModuleRegistry;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;

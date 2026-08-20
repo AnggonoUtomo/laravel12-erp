@@ -2,9 +2,9 @@
 
 namespace App\Modules\Console\BackupRestores\Services;
 
-use App\Modules\Console\AuditLogs\Services\AuditLogService;
+use App\Modules\Console\AuditLogs\Application\Services\AuditLogService;
 use App\Modules\Console\NotificationTemplates\Models\NotificationTemplate;
-use App\Modules\Console\SystemSettings\Models\SystemSetting;
+use App\Modules\Console\SystemSettings\Infrastructure\Models\SystemSetting;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;

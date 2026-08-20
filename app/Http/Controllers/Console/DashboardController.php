@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Console;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Modules\Console\AuditLogs\Models\AuditLog;
+use App\Modules\Console\AuditLogs\Infrastructure\Models\AuditLog;
 use App\Modules\Console\LoginActivities\Models\LoginActivity;
 use App\Support\Modules\ModulePermissionRegistry;
 use App\Support\Modules\ModuleRegistry;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 
 class DashboardController extends Controller
 {

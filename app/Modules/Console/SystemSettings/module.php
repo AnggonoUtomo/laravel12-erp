@@ -1,6 +1,6 @@
 <?php
 
-use App\Modules\Console\SystemSettings\Providers\SystemSettingsServiceProvider;
+use App\Modules\Console\SystemSettings\ServiceProvider;
 
 return [
     'name' => 'SystemSettings',
@@ -11,7 +11,7 @@ return [
     'version' => '1.0.0',
     'enabled' => true,
     'providers' => [
-        SystemSettingsServiceProvider::class,
+        ServiceProvider::class,
     ],
     'dependencies' => [],
     'exports' => [

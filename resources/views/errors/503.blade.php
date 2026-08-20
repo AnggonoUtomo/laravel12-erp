@@ -4,8 +4,8 @@
     $pageStyle = 'aurora';
 
     try {
-        if (class_exists(\App\Modules\Console\SystemSettings\Models\SystemSetting::class)) {
-            $settings = \App\Modules\Console\SystemSettings\Models\SystemSetting::query()
+        if (class_exists(\App\Modules\Console\SystemSettings\Infrastructure\Models\SystemSetting::class)) {
+            $settings = \App\Modules\Console\SystemSettings\Infrastructure\Models\SystemSetting::query()
                 ->where('group', 'maintenance_mode')
                 ->whereIn('key', ['message', 'page_style'])
                 ->pluck('value', 'key');

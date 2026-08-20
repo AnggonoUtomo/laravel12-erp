@@ -99,8 +99,8 @@ class ModuleContractValidator
             $enabled = $manifest['exports'][$export] ?? null;
             if (! is_bool($enabled)) {
                 $errors[] = $this->error($module['key'], $module['path'], 'invalid_export', "Export {$export} must be boolean.");
-            } elseif ($enabled && ! File::exists($module['path'].DIRECTORY_SEPARATOR.$export.'.php')) {
-                $errors[] = $this->error($module['key'], $module['path'], 'missing_export', "Export {$export} requires {$export}.php.");
+            } elseif ($enabled && $this->exportPath($module['path'], $export) === null) {
+                $errors[] = $this->error($module['key'], $module['path'], 'missing_export', "Export {$export} requires its declared file.");
             }
         }
 
@@ -134,6 +134,20 @@ class ModuleContractValidator
         return collect($navigation['items'])->every(fn (mixed $item) => is_array($item)
             && filled($item['title'] ?? null)
             && filled($item['url'] ?? null));
+    }
+
+    private function exportPath(string $modulePath, string $export): ?string
+    {
+        if ($export === 'routes') {
+            $target = $modulePath.DIRECTORY_SEPARATOR.'Presentation'.DIRECTORY_SEPARATOR.'Routes'.DIRECTORY_SEPARATOR.'web.php';
+            if (File::exists($target)) {
+                return $target;
+            }
+        }
+
+        $legacy = $modulePath.DIRECTORY_SEPARATOR.$export.'.php';
+
+        return File::exists($legacy) ? $legacy : null;
     }
 
     private function normalizeDependency(mixed $dependency, string $project): string

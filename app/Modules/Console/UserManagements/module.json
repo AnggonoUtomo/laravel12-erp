@@ -1,0 +1,7 @@
+{
+    "name": "UserManagements",
+    "namespace": "Console",
+    "title": "Manajemen User",
+    "slug": "user-managements",
+    "architecture": "ddd-lite"
+}

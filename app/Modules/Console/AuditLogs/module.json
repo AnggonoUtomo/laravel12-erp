@@ -1,0 +1,7 @@
+{
+    "name": "AuditLogs",
+    "namespace": "Console",
+    "title": "Audit Logs",
+    "slug": "audit-logs",
+    "architecture": "ddd-lite"
+}

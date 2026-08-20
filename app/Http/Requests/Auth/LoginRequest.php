@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
-use App\Modules\Console\SystemSettings\Services\SystemSettingService;
+use App\Modules\Console\SystemSettings\Application\Services\SystemSettingService;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;

@@ -1,0 +1,7 @@
+{
+    "name": "SystemSettings",
+    "namespace": "Console",
+    "title": "System Settings",
+    "slug": "system-settings",
+    "architecture": "ddd-lite"
+}

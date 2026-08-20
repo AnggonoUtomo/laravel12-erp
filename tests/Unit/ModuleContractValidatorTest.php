@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Support\Modules\ModuleContractValidator;
+use App\Support\Modules\ModuleRegistry;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -53,6 +54,20 @@ class ModuleContractValidatorTest extends TestCase
         $codes = collect(app(ModuleContractValidator::class)->validate())->pluck('code');
 
         $this->assertTrue($codes->contains('invalid_navigation'));
+    }
+
+    public function test_target_routes_are_validated_and_loaded_before_legacy_routes(): void
+    {
+        $this->writeModule('Console', 'Activities');
+        $path = $this->root.'/Console/Activities';
+        File::ensureDirectoryExists($path.'/Presentation/Routes');
+        File::put($path.'/Presentation/Routes/web.php', '<?php return [];');
+
+        $this->assertSame([], app(ModuleContractValidator::class)->validate());
+        $this->assertSame(
+            [str_replace('\\', '/', $path.'/Presentation/Routes/web.php')],
+            array_map(fn (string $route) => str_replace('\\', '/', $route), ModuleRegistry::routeFiles()),
+        );
     }
 
     private function writeModule(string $project, string $name, bool $navigation = true, array $dependencies = []): void

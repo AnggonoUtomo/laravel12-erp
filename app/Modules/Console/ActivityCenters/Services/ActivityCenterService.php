@@ -3,8 +3,8 @@
 namespace App\Modules\Console\ActivityCenters\Services;
 
 use App\Models\User;
-use App\Modules\Console\AuditLogs\Models\AuditLog;
-use App\Modules\Console\SystemSettings\Services\SystemSettingService;
+use App\Modules\Console\AuditLogs\Infrastructure\Models\AuditLog;
+use App\Modules\Console\SystemSettings\Application\Services\SystemSettingService;
 
 class ActivityCenterService
 {

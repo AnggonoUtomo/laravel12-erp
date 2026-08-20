@@ -4,7 +4,7 @@ namespace App\Modules\Console\LoginActivities\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Console\LoginActivities\Models\LoginActivity;
-use App\Modules\Console\SystemSettings\Services\SystemSettingService;
+use App\Modules\Console\SystemSettings\Application\Services\SystemSettingService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;

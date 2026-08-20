@@ -2,7 +2,7 @@
 
 namespace App\Modules\Console\BackupRestores\Services;
 
-use App\Modules\Console\AuditLogs\Services\AuditLogService;
+use App\Modules\Console\AuditLogs\Application\Services\AuditLogService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;

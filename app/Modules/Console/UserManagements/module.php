@@ -1,6 +1,6 @@
 <?php
 
-use App\Modules\Console\UserManagements\Providers\UserManagementsServiceProvider;
+use App\Modules\Console\UserManagements\ServiceProvider;
 
 return [
     'name' => 'UserManagements',
@@ -11,7 +11,7 @@ return [
     'version' => '1.0.0',
     'enabled' => true,
     'providers' => [
-        UserManagementsServiceProvider::class,
+        ServiceProvider::class,
     ],
     'dependencies' => [
         'Console.AccessControls',

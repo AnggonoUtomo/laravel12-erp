@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use App\Modules\Console\SystemSettings\Jobs\SendUserActivationLinkJob;
+use App\Modules\Console\SystemSettings\Infrastructure\Jobs\SendUserActivationLinkJob;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;

@@ -1,6 +1,6 @@
 <?php
 
-use App\Modules\Console\AccessControls\Providers\AccessControlsServiceProvider;
+use App\Modules\Console\AccessControls\ServiceProvider;
 
 return [
     'name' => 'AccessControls',
@@ -11,7 +11,7 @@ return [
     'version' => '1.0.0',
     'enabled' => true,
     'providers' => [
-        AccessControlsServiceProvider::class,
+        ServiceProvider::class,
     ],
     'dependencies' => [],
     'exports' => [

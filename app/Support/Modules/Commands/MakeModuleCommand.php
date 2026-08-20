@@ -9,16 +9,21 @@ use Illuminate\Support\Str;
 class MakeModuleCommand extends Command
 {
     protected $signature = 'make:module
-        {name : Module name, for example UserManagements or GeneralLedger}
+        {name : Module name, or namespace when the optional module argument is supplied}
+        {module? : Optional module name, for example make:module StudentManagement Student}
         {--project= : Project/group namespace, for example Console or Accounting}
         {--force : Overwrite generated files when they already exist}
         {--without-frontend : Do not create the Inertia page scaffold}';
 
-    protected $description = 'Create a modular feature scaffold under app/Modules/{Project}/{Module}.';
+    protected $description = 'Create a DDD-lite modular feature scaffold under app/Modules/{Project}/{Module}.';
 
     public function handle(): int
     {
-        [$project, $module] = $this->resolveNames((string) $this->argument('name'), $this->option('project'));
+        [$project, $module] = $this->resolveNames(
+            (string) $this->argument('name'),
+            $this->argument('module'),
+            $this->option('project'),
+        );
 
         if ($module === '' || $project === '') {
             $this->error('Project dan module wajib punya nama valid.');
@@ -43,14 +48,14 @@ class MakeModuleCommand extends Command
 
         $files = [
             "{$modulePath}/module.php" => $this->moduleStub($namespace, $project, $module, $title, $moduleSlug),
-            "{$modulePath}/routes.php" => $this->routesStub($namespace, $module, $routePrefix, $routeName),
+            "{$modulePath}/module.json" => $this->jsonManifestStub($project, $module, $title, $moduleSlug),
+            "{$modulePath}/README.md" => $this->readmeStub($project, $module, $title),
+            "{$modulePath}/Presentation/Routes/web.php" => $this->routesStub($namespace, $module, $routePrefix, $routeName),
             "{$modulePath}/permissions.php" => $this->permissionsStub($moduleSlug),
             "{$modulePath}/navigation.php" => $this->navigationStub($title, $routePrefix),
-            "{$modulePath}/Providers/{$module}ServiceProvider.php" => $this->providerStub($namespace, $module),
-            "{$modulePath}/Http/Controllers/{$module}Controller.php" => $this->controllerStub($namespace, $module, $frontendPath),
-            "{$modulePath}/Services/{$module}Service.php" => $this->serviceStub($namespace, $module),
-            "{$modulePath}/Transactions/{$module}Transaction.php" => $this->transactionStub($namespace, $module),
-            "{$modulePath}/Support/Permissions.php" => $this->supportPermissionsStub($namespace, $moduleSlug),
+            "{$modulePath}/ServiceProvider.php" => $this->providerStub($namespace, $module),
+            "{$modulePath}/Presentation/Http/Controllers/{$module}Controller.php" => $this->controllerStub($namespace, $module, $frontendPath),
+            "{$modulePath}/Application/Services/{$module}Service.php" => $this->serviceStub($namespace, $module),
         ];
 
         foreach ($files as $path => $contents) {
@@ -94,12 +99,15 @@ class MakeModuleCommand extends Command
     /**
      * @return array{0: string, 1: string}
      */
-    private function resolveNames(string $name, mixed $projectOption): array
+    private function resolveNames(string $name, mixed $moduleArgument, mixed $projectOption): array
     {
         $project = (string) ($projectOption ?: config('modules.default_project', 'Console'));
         $module = $name;
 
-        if (! $projectOption && preg_match('/[:\/\\\\]/', $name) === 1) {
+        if (filled($moduleArgument)) {
+            $project = (string) ($projectOption ?: $name);
+            $module = (string) $moduleArgument;
+        } elseif (! $projectOption && preg_match('/[:\/\\\\]/', $name) === 1) {
             $parts = preg_split('/[:\/\\\\]+/', $name, flags: PREG_SPLIT_NO_EMPTY) ?: [];
 
             if (count($parts) >= 2) {
@@ -117,17 +125,16 @@ class MakeModuleCommand extends Command
     private function makeDirectories(string $modulePath): void
     {
         foreach ([
-            'DTO',
-            'Events',
-            'Http/Controllers',
-            'Http/Requests',
-            'Integrations',
-            'Listeners',
-            'Policies',
-            'Providers',
-            'Services',
-            'Support',
-            'Transactions',
+            'Application/DTOs',
+            'Application/Services',
+            'Database/Migrations',
+            'Domain',
+            'Infrastructure/Repositories',
+            'Presentation/Http/Controllers',
+            'Presentation/Http/Requests',
+            'Presentation/Policies',
+            'Presentation/Routes',
+            'Tests/Feature',
         ] as $directory) {
             File::ensureDirectoryExists($modulePath.'/'.$directory);
         }
@@ -160,7 +167,7 @@ class MakeModuleCommand extends Command
         return <<<PHP
 <?php
 
-use {$namespace}\\Http\\Controllers\\{$module}Controller;
+use {$namespace}\\Presentation\\Http\\Controllers\\{$module}Controller;
 use Illuminate\\Support\\Facades\\Route;
 
 Route::middleware(['auth'])->prefix('{$routePrefix}')->name('{$routeName}.')->group(function () {
@@ -175,7 +182,7 @@ PHP;
         return <<<PHP
 <?php
 
-use {$namespace}\\Providers\\{$module}ServiceProvider;
+use {$namespace}\\ServiceProvider;
 
 return [
     'name' => '{$module}',
@@ -186,7 +193,7 @@ return [
     'version' => '1.0.0',
     'enabled' => true,
     'providers' => [
-        {$module}ServiceProvider::class,
+        ServiceProvider::class,
     ],
     'dependencies' => [],
     'exports' => [
@@ -200,6 +207,22 @@ return [
 ];
 
 PHP;
+    }
+
+    private function jsonManifestStub(string $project, string $module, string $title, string $slug): string
+    {
+        return json_encode([
+            'name' => $module,
+            'namespace' => $project,
+            'title' => $title,
+            'slug' => $slug,
+            'architecture' => 'ddd-lite',
+        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES).PHP_EOL;
+    }
+
+    private function readmeStub(string $project, string $module, string $title): string
+    {
+        return "# {$title}\n\n**Module:** `{$project}.{$module}`  \n**Architecture:** DDD-lite\n\n## Ownership\n\nJelaskan capability, ownership data, public contract, dan dependency module di sini sebelum menambah business rule.\n";
     }
 
     private function permissionsStub(string $routePrefix): string
@@ -249,11 +272,11 @@ PHP;
         return <<<PHP
 <?php
 
-namespace {$namespace}\\Providers;
+namespace {$namespace};
 
-use Illuminate\\Support\\ServiceProvider;
+use Illuminate\\Support\\ServiceProvider as LaravelServiceProvider;
 
-class {$module}ServiceProvider extends ServiceProvider
+class ServiceProvider extends LaravelServiceProvider
 {
     public function boot(): void
     {
@@ -269,7 +292,7 @@ PHP;
         return <<<PHP
 <?php
 
-namespace {$namespace}\\Http\\Controllers;
+namespace {$namespace}\\Presentation\\Http\\Controllers;
 
 use Illuminate\\Http\\Request;
 use Inertia\\Inertia;
@@ -291,7 +314,7 @@ PHP;
         return <<<PHP
 <?php
 
-namespace {$namespace}\\Services;
+namespace {$namespace}\\Application\\Services;
 
 class {$module}Service
 {

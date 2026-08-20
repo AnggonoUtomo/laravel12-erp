@@ -39,6 +39,8 @@ class ModuleRegistry
     private static function isModuleDirectory(string $path): bool
     {
         return File::exists($path.DIRECTORY_SEPARATOR.'module.php')
+            || File::exists($path.DIRECTORY_SEPARATOR.'module.json')
+            || File::exists($path.DIRECTORY_SEPARATOR.'Presentation'.DIRECTORY_SEPARATOR.'Routes'.DIRECTORY_SEPARATOR.'web.php')
             || File::exists($path.DIRECTORY_SEPARATOR.'routes.php')
             || File::exists($path.DIRECTORY_SEPARATOR.'permissions.php')
             || File::exists($path.DIRECTORY_SEPARATOR.'navigation.php')
@@ -124,8 +126,13 @@ class ModuleRegistry
     public static function routeFiles(): array
     {
         return self::modules()
-            ->map(fn (array $module) => $module['path'].DIRECTORY_SEPARATOR.'routes.php')
-            ->filter(fn (string $path) => File::exists($path))
+            ->map(function (array $module): ?string {
+                $target = $module['path'].DIRECTORY_SEPARATOR.'Presentation'.DIRECTORY_SEPARATOR.'Routes'.DIRECTORY_SEPARATOR.'web.php';
+                $legacy = $module['path'].DIRECTORY_SEPARATOR.'routes.php';
+
+                return File::exists($target) ? $target : (File::exists($legacy) ? $legacy : null);
+            })
+            ->filter()
             ->values()
             ->all();
     }
@@ -172,6 +179,7 @@ class ModuleRegistry
     public static function permissionProviders(): Collection
     {
         return self::modules()
+            ->filter(fn (array $module) => File::exists($module['path'].DIRECTORY_SEPARATOR.'Support'.DIRECTORY_SEPARATOR.'Permissions.php'))
             ->map(fn (array $module) => $module['namespace'].'\\Support\\Permissions')
             ->filter(fn (string $class) => class_exists($class))
             ->filter(fn (string $class) => method_exists($class, 'permissions'))

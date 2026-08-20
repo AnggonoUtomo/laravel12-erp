@@ -1,0 +1,7 @@
+{
+    "name": "AccessControls",
+    "namespace": "Console",
+    "title": "Kontrol Akses",
+    "slug": "access-controls",
+    "architecture": "ddd-lite"
+}

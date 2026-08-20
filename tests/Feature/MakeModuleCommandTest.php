@@ -48,17 +48,20 @@ class MakeModuleCommandTest extends TestCase
             ])->assertSuccessful();
 
             $this->assertFileExists($backendPath.'/module.php');
-            $this->assertDirectoryExists($backendPath.'/Events');
-            $this->assertDirectoryExists($backendPath.'/Integrations');
-            $this->assertDirectoryExists($backendPath.'/Listeners');
-            $this->assertFileExists($backendPath.'/routes.php');
+            $this->assertFileExists($backendPath.'/module.json');
+            $this->assertFileExists($backendPath.'/README.md');
+            $this->assertDirectoryExists($backendPath.'/Application/DTOs');
+            $this->assertDirectoryExists($backendPath.'/Infrastructure/Repositories');
+            $this->assertDirectoryDoesNotExist($backendPath.'/Application/Commands');
+            $this->assertDirectoryDoesNotExist($backendPath.'/Infrastructure/Adapters');
+            $this->assertDirectoryDoesNotExist($backendPath.'/Infrastructure/Integrations');
+            $this->assertFileExists($backendPath.'/Presentation/Routes/web.php');
             $this->assertFileExists($backendPath.'/permissions.php');
             $this->assertFileExists($backendPath.'/navigation.php');
-            $this->assertFileExists($backendPath.'/Providers/SandboxModuleServiceProvider.php');
-            $this->assertFileExists($backendPath.'/Http/Controllers/SandboxModuleController.php');
-            $this->assertFileExists($backendPath.'/Services/SandboxModuleService.php');
-            $this->assertFileExists($backendPath.'/Transactions/SandboxModuleTransaction.php');
-            $this->assertFileExists($backendPath.'/Support/Permissions.php');
+            $this->assertFileExists($backendPath.'/ServiceProvider.php');
+            $this->assertFileExists($backendPath.'/Presentation/Http/Controllers/SandboxModuleController.php');
+            $this->assertFileExists($backendPath.'/Application/Services/SandboxModuleService.php');
+            $this->assertStringContainsString('extends LaravelServiceProvider', File::get($backendPath.'/ServiceProvider.php'));
             $this->assertFileExists($frontendPath.'/index.tsx');
         } finally {
             File::deleteDirectory($backendPath);
@@ -79,8 +82,26 @@ class MakeModuleCommandTest extends TestCase
             ])->assertSuccessful();
 
             $this->assertFileExists($backendPath.'/module.php');
-            $this->assertFileExists($backendPath.'/routes.php');
+            $this->assertFileExists($backendPath.'/Presentation/Routes/web.php');
             $this->assertFileDoesNotExist($this->frontendRoot.'/tmp-project/sandbox-module/index.tsx');
+        } finally {
+            File::deleteDirectory($backendPath);
+        }
+    }
+
+    public function test_it_accepts_namespace_and_module_as_positional_arguments(): void
+    {
+        $backendPath = $this->backendRoot.'/StudentManagement/Students';
+
+        try {
+            $this->artisan('make:module', [
+                'name' => 'StudentManagement',
+                'module' => 'Students',
+                '--without-frontend' => true,
+            ])->assertSuccessful();
+
+            $this->assertFileExists($backendPath.'/Presentation/Routes/web.php');
+            $this->assertFileExists($backendPath.'/ServiceProvider.php');
         } finally {
             File::deleteDirectory($backendPath);
         }

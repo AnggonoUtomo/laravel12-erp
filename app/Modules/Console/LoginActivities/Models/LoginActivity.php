@@ -3,11 +3,14 @@
 namespace App\Modules\Console\LoginActivities\Models;
 
 use App\Models\User;
+use App\Models\Concerns\UsesSchemaAwareUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class LoginActivity extends Model
 {
+    use UsesSchemaAwareUlids;
+
     protected $fillable = [
         'user_id',
         'email',

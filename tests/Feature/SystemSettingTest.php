@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use App\Modules\Console\AuditLogs\Models\AuditLog;
-use App\Modules\Console\SystemSettings\Mail\SmtpTestMail;
-use App\Modules\Console\SystemSettings\Models\SystemSetting;
+use App\Modules\Console\AuditLogs\Infrastructure\Models\AuditLog;
+use App\Modules\Console\SystemSettings\Infrastructure\Mail\SmtpTestMail;
+use App\Modules\Console\SystemSettings\Infrastructure\Models\SystemSetting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Crypt;

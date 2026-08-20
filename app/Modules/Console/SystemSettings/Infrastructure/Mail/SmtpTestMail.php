@@ -2,7 +2,7 @@
 
 namespace App\Modules\Console\SystemSettings\Infrastructure\Mail;
 
-use App\Modules\Console\NotificationTemplates\Services\NotificationTemplateService;
+use App\Modules\Console\NotificationTemplates\Application\Services\NotificationTemplateService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;

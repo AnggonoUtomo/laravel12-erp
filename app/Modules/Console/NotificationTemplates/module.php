@@ -1,6 +1,6 @@
 <?php
 
-use App\Modules\Console\NotificationTemplates\Providers\NotificationTemplatesServiceProvider;
+use App\Modules\Console\NotificationTemplates\ServiceProvider;
 
 return [
     'name' => 'NotificationTemplates',
@@ -11,7 +11,7 @@ return [
     'version' => '1.0.0',
     'enabled' => true,
     'providers' => [
-        NotificationTemplatesServiceProvider::class,
+        ServiceProvider::class,
     ],
     'dependencies' => [],
     'exports' => [

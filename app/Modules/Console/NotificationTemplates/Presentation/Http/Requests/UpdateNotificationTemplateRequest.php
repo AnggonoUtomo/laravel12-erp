@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Console\NotificationTemplates\Http\Requests;
+namespace App\Modules\Console\NotificationTemplates\Presentation\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

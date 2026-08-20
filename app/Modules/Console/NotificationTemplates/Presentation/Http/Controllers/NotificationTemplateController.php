@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Modules\Console\NotificationTemplates\Http\Controllers;
+namespace App\Modules\Console\NotificationTemplates\Presentation\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Console\NotificationTemplates\Http\Requests\UpdateNotificationTemplateRequest;
-use App\Modules\Console\NotificationTemplates\Models\NotificationTemplate;
-use App\Modules\Console\NotificationTemplates\Services\NotificationTemplateService;
+use App\Modules\Console\NotificationTemplates\Application\Services\NotificationTemplateService;
+use App\Modules\Console\NotificationTemplates\Infrastructure\Models\NotificationTemplate;
+use App\Modules\Console\NotificationTemplates\Presentation\Http\Requests\UpdateNotificationTemplateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

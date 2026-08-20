@@ -1,0 +1,7 @@
+{
+    "name": "NotificationTemplates",
+    "namespace": "Console",
+    "title": "Notification Templates",
+    "slug": "notification-templates",
+    "architecture": "ddd-lite"
+}

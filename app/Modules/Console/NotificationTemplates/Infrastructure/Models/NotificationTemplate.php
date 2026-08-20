@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Console\NotificationTemplates\Models;
+namespace App\Modules\Console\NotificationTemplates\Infrastructure\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Concerns\UsesSchemaAwareUlids;

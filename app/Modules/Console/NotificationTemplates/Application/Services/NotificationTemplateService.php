@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Modules\Console\NotificationTemplates\Services;
+namespace App\Modules\Console\NotificationTemplates\Application\Services;
 
 use App\Modules\Console\AuditLogs\Application\Services\AuditLogService;
-use App\Modules\Console\NotificationTemplates\Models\NotificationTemplate;
+use App\Modules\Console\NotificationTemplates\Infrastructure\Models\NotificationTemplate;
 use Illuminate\Support\Collection;
 
 class NotificationTemplateService

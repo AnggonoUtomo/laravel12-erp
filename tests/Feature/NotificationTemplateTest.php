@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use App\Modules\Console\NotificationTemplates\Models\NotificationTemplate;
-use App\Modules\Console\NotificationTemplates\Services\NotificationTemplateService;
+use App\Modules\Console\NotificationTemplates\Application\Services\NotificationTemplateService;
+use App\Modules\Console\NotificationTemplates\Infrastructure\Models\NotificationTemplate;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;

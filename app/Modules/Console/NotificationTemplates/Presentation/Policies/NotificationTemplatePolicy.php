@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Console\NotificationTemplates\Policies;
+namespace App\Modules\Console\NotificationTemplates\Presentation\Policies;
 
 use App\Models\User;
 

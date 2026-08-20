@@ -1,6 +1,6 @@
 <?php
 
-use App\Modules\Console\NotificationTemplates\Http\Controllers\NotificationTemplateController;
+use App\Modules\Console\NotificationTemplates\Presentation\Http\Controllers\NotificationTemplateController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->prefix('notification-templates')->name('notification-templates.')->group(function () {

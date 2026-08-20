@@ -84,7 +84,7 @@ class AuditLogTest extends TestCase
                 'reset_token' => 'token-secret',
                 'nested' => [
                     'smtp_password' => 'smtp-secret',
-                    'google_maps_api_key' => 'maps-secret',
+                    'external_service_api_key' => 'service-secret',
                     'visible' => 'safe-value',
                 ],
             ],
@@ -97,7 +97,7 @@ class AuditLogTest extends TestCase
         $this->assertSame('[redacted]', $values['password']);
         $this->assertSame('[redacted]', $values['reset_token']);
         $this->assertSame('[redacted]', $values['nested']['smtp_password']);
-        $this->assertSame('[redacted]', $values['nested']['google_maps_api_key']);
+        $this->assertSame('[redacted]', $values['nested']['external_service_api_key']);
         $this->assertSame('safe-value', $values['nested']['visible']);
     }
 }

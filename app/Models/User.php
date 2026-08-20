@@ -3,10 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Modules\HR\Employees\Models\Employee;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -54,14 +52,6 @@ class User extends Authenticatable implements HasMedia
     public function getAvatarAttribute(): ?string
     {
         return $this->getFirstMediaUrl('avatar') ?: null;
-    }
-
-    /**
-     * @return HasOne<Employee>
-     */
-    public function employee(): HasOne
-    {
-        return $this->hasOne(Employee::class);
     }
 
     /**

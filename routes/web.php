@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Console\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -8,15 +9,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('console/dashboard');
-    })->name('dashboard');
-
-    Route::get('hr', fn () => redirect()->route('hr.dashboard'));
-
-    Route::get('hr/dashboard', function () {
-        return Inertia::render('hr/dashboard');
-    })->middleware('can:hr.view')->name('hr.dashboard');
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
 });
 
 require __DIR__.'/settings.php';

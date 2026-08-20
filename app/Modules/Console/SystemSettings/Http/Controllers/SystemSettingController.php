@@ -8,7 +8,6 @@ use App\Modules\Console\SystemSettings\Http\Requests\UpdateBrandingSettingReques
 use App\Modules\Console\SystemSettings\Http\Requests\UpdateEmailSettingRequest;
 use App\Modules\Console\SystemSettings\Http\Requests\UpdateLocalizationSettingRequest;
 use App\Modules\Console\SystemSettings\Http\Requests\UpdateMaintenanceModeRequest;
-use App\Modules\Console\SystemSettings\Http\Requests\UpdateMapSettingRequest;
 use App\Modules\Console\SystemSettings\Http\Requests\UpdatePaginationSettingRequest;
 use App\Modules\Console\SystemSettings\Http\Requests\UpdatePasswordPolicyRequest;
 use App\Modules\Console\SystemSettings\Http\Requests\UpdateSecurityPolicyRequest;
@@ -37,7 +36,6 @@ class SystemSettingController extends Controller
             'securityPolicy' => $this->settings->securityPolicySettings(),
             'passwordPolicy' => $this->settings->passwordPolicySettings(),
             'maintenanceMode' => $this->settings->maintenanceModeSettings(),
-            'mapSettings' => $this->settings->mapSettings(),
             'systemHealth' => $this->settings->systemHealth(),
             'environmentInfo' => $this->settings->environmentInfo(),
             'can' => [
@@ -93,13 +91,6 @@ class SystemSettingController extends Controller
         $this->settings->updateMaintenanceMode($request->toDto());
 
         return back()->with('success', 'Maintenance mode berhasil disimpan.');
-    }
-
-    public function updateMap(UpdateMapSettingRequest $request): RedirectResponse
-    {
-        $this->settings->updateMapSettings($request->toDto());
-
-        return back()->with('success', 'Konfigurasi Google Maps berhasil disimpan.');
     }
 
     public function testEmail(TestEmailSettingRequest $request): RedirectResponse

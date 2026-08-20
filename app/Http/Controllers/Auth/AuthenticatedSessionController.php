@@ -29,27 +29,12 @@ class AuthenticatedSessionController extends Controller
         ]);
     }
 
-    public function createHr(Request $request): Response
-    {
-        $this->rememberRedirect($request, route('hr.dashboard', absolute: false));
-
-        return Inertia::render('hr/auth/login', [
-            'canResetPassword' => Route::has('password.request'),
-            'status' => $request->session()->get('status'),
-        ]);
-    }
-
     /**
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
     {
         return $this->authenticate($request, route('dashboard', absolute: false));
-    }
-
-    public function storeHr(LoginRequest $request): RedirectResponse
-    {
-        return $this->authenticate($request, route('hr.dashboard', absolute: false));
     }
 
     private function authenticate(LoginRequest $request, string $defaultRedirect): RedirectResponse

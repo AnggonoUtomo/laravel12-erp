@@ -8,7 +8,6 @@ import { EmailSettingsPanel } from './components-system-settings/email-settings-
 import { EnvironmentInfoPanel } from './components-system-settings/environment-info-panel';
 import { LocalizationSettingsPanel } from './components-system-settings/localization-settings-panel';
 import { MaintenanceModePanel } from './components-system-settings/maintenance-mode-panel';
-import { MapSettingsPanel } from './components-system-settings/map-settings-panel';
 import { PaginationSettingsPanel } from './components-system-settings/pagination-settings-panel';
 import { PasswordPolicyPanel } from './components-system-settings/password-policy-panel';
 import { SecurityPolicyPanel } from './components-system-settings/security-policy-panel';
@@ -20,7 +19,6 @@ import type {
     EmailSettingForm,
     LocalizationForm,
     MaintenanceModeForm,
-    MapSettingForm,
     PaginationForm,
     PasswordPolicyForm,
     RetryUnit,
@@ -46,7 +44,6 @@ const sectionLabels: Record<SystemSettingSection, string> = {
     security: 'Security',
     password: 'Password',
     maintenance: 'Maintenance',
-    map: 'Maps',
     health: 'Health',
     environment: 'Environment',
 };
@@ -59,7 +56,6 @@ export default function SystemSettings({
     securityPolicy,
     passwordPolicy,
     maintenanceMode,
-    mapSettings,
     systemHealth,
     environmentInfo,
     can,
@@ -125,11 +121,6 @@ export default function SystemSettings({
         retry_seconds: maintenanceMode.retry_seconds ? String(maintenanceMode.retry_seconds) : '',
         refresh_seconds: maintenanceMode.refresh_seconds ? String(maintenanceMode.refresh_seconds) : '',
         secret: '',
-    });
-    const mapForm = useForm<MapSettingForm>({
-        enabled: mapSettings.enabled,
-        google_maps_api_key: mapSettings.google_maps_api_key ?? '',
-        google_maps_map_id: mapSettings.google_maps_map_id ?? '',
     });
     const testForm = useForm<TestEmailForm>({
         recipient: '',
@@ -209,14 +200,6 @@ export default function SystemSettings({
             retry_seconds: retryPartsToSeconds(retryAmount, retryUnit),
         }));
         maintenanceForm.put(route('system-settings.maintenance-mode.update'), {
-            preserveScroll: true,
-        });
-    };
-
-    const submitMapSettings = (event: FormEvent) => {
-        event.preventDefault();
-
-        mapForm.put(route('system-settings.map.update'), {
             preserveScroll: true,
         });
     };
@@ -301,8 +284,6 @@ export default function SystemSettings({
                         <SystemHealthPanel systemHealth={systemHealth} />
                     ) : activeSection === 'environment' ? (
                         <EnvironmentInfoPanel environmentInfo={environmentInfo} />
-                    ) : activeSection === 'map' ? (
-                        <MapSettingsPanel can={can} mapSettings={mapSettings} form={mapForm} submit={submitMapSettings} />
                     ) : (
                         <MaintenanceModePanel
                             can={can}

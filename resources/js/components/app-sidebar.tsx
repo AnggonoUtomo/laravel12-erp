@@ -69,34 +69,15 @@ const SIDEBAR_SUB_MENU_BUTTON_CLASS =
 const menuTitleTranslations: Record<string, string> = {
     'Audit Logs': 'Log Audit',
     'Backup & Restore': 'Backup & Pemulihan',
-    Departements: 'Departemen',
-    Employees: 'Karyawan',
-    'Employee Contracts': 'Kontrak Karyawan',
-    'Employee Documents': 'Dokumen Karyawan',
-    'Employee Movements': 'Mutasi Karyawan',
-    'Employee Offboardings': 'Offboarding Karyawan',
-    'Employee Onboardings': 'Onboarding Karyawan',
-    'Employment Statuses': 'Status Kepegawaian',
-    'Employment Types': 'Tipe Kepegawaian',
-    'HR Reference Data': 'Data Referensi HR',
-    'HR Reports': 'Laporan HR',
-    'Job Levels': 'Level Jabatan',
     'Login Activity': 'Aktivitas Login',
     'Notification Templates': 'Template Notifikasi',
-    'Offboarding Templates': 'Template Offboarding',
-    'Onboarding Templates': 'Template Onboarding',
-    'Organization Structures': 'Struktur Organisasi',
-    Positions: 'Posisi',
     'Queue Monitor': 'Monitor Antrean',
     'Scheduler Monitor': 'Monitor Jadwal',
     'System Settings': 'Pengaturan Sistem',
-    'Work Locations': 'Lokasi Kerja',
 };
 
 const groupTitleTranslations: Record<string, string> = {
     Administrasi: 'Administrasi',
-    Employee: 'Karyawan',
-    HR: 'HR',
     Observability: 'Observabilitas',
     Operasional: 'Operasional',
     Sistem: 'Sistem',
@@ -105,8 +86,6 @@ const groupTitleTranslations: Record<string, string> = {
 const sidebarIconColors: Record<string, string> = {
     Dasbor: '!text-sky-500 dark:!text-sky-400',
     Administrasi: '!text-violet-500 dark:!text-violet-400',
-    Employee: '!text-blue-500 dark:!text-blue-400',
-    HR: '!text-emerald-500 dark:!text-emerald-400',
     Observability: '!text-orange-500 dark:!text-orange-400',
     Operasional: '!text-amber-500 dark:!text-amber-400',
     Sistem: '!text-purple-500 dark:!text-purple-400',
@@ -119,20 +98,6 @@ const sidebarIconColors: Record<string, string> = {
     'Scheduler Monitor': '!text-orange-500 dark:!text-orange-400',
     'Notification Templates': '!text-emerald-500 dark:!text-emerald-400',
     'Backup & Restore': '!text-amber-500 dark:!text-amber-400',
-    Departements: '!text-teal-500 dark:!text-teal-400',
-    Positions: '!text-sky-500 dark:!text-sky-400',
-    'Job Levels': '!text-cyan-500 dark:!text-cyan-400',
-    'Work Locations': '!text-emerald-500 dark:!text-emerald-400',
-    'Employment Statuses': '!text-rose-500 dark:!text-rose-400',
-    'Employment Types': '!text-pink-500 dark:!text-pink-400',
-    'HR Reference Data': '!text-cyan-500 dark:!text-cyan-400',
-    'Organization Structures': '!text-emerald-500 dark:!text-emerald-400',
-    Employees: '!text-blue-500 dark:!text-blue-400',
-    'Employee Contracts': '!text-amber-500 dark:!text-amber-400',
-    'Onboarding Templates': '!text-violet-500 dark:!text-violet-400',
-    'Employee Onboardings': '!text-emerald-500 dark:!text-emerald-400',
-    'Offboarding Templates': '!text-orange-500 dark:!text-orange-400',
-    'Employee Offboardings': '!text-rose-500 dark:!text-rose-400',
     'Pengaturan Akun': '!text-purple-500 dark:!text-purple-400',
     Profil: '!text-indigo-500 dark:!text-indigo-400',
     'Kata Sandi': '!text-rose-500 dark:!text-rose-400',
@@ -227,10 +192,6 @@ function isItemActive(item: SidebarItem, currentUrl: string) {
         return item.title === 'Dasbor' && (currentUrl === item.url || currentUrl === '/');
     }
 
-    if (item.url === '/hr/dashboard') {
-        return currentUrl === item.url;
-    }
-
     return currentUrl.startsWith(item.url);
 }
 
@@ -279,8 +240,6 @@ function SidebarItemIcon({ item }: { item: SidebarItem }) {
 
 const groupIconMap: Record<string, SidebarItem['icon']> = {
     Administrasi: ShieldCheck,
-    Employee: UserRoundCog,
-    HR: UsersRound,
     Observability: ScrollText,
     Operasional: ListRestart,
     Sistem: SlidersHorizontal,
@@ -533,12 +492,11 @@ function SidebarAccountFooter({ user }: { user: SharedData['auth']['user'] }) {
 export function AppSidebar() {
     const page = usePage<SharedData>();
     const sidebarContentRef = useRef<HTMLDivElement | null>(null);
-    const dashboardUrl = page.url.startsWith('/hr/') ? '/hr/dashboard' : '/dashboard';
     const appName = page.props.branding?.app_name ?? page.props.name;
     const overviewNavItems: SidebarItem[] = [
         {
             title: 'Dasbor',
-            url: dashboardUrl,
+            url: '/dashboard',
             icon: LayoutGrid,
         },
     ];

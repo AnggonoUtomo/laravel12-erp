@@ -13,5 +13,4 @@ Route::middleware(['auth'])->prefix('system-settings')->name('system-settings.')
     Route::put('security-policy', [SystemSettingController::class, 'updateSecurityPolicy'])->name('security-policy.update');
     Route::put('password-policy', [SystemSettingController::class, 'updatePasswordPolicy'])->name('password-policy.update');
     Route::put('maintenance-mode', [SystemSettingController::class, 'updateMaintenanceMode'])->name('maintenance-mode.update');
-    Route::put('map', [SystemSettingController::class, 'updateMap'])->name('map.update');
 });

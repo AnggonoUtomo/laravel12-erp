@@ -17,13 +17,6 @@ class AuthenticationTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_hr_login_screen_can_be_rendered()
-    {
-        $response = $this->get('/hr/login');
-
-        $response->assertStatus(200);
-    }
-
     public function test_legacy_login_url_redirects_to_console_login()
     {
         $this->get('/login')->assertRedirect('/console/login');
@@ -42,11 +35,11 @@ class AuthenticationTest extends TestCase
         $response->assertRedirect(route('dashboard', absolute: false));
     }
 
-    public function test_users_return_to_project_page_after_login_with_redirect()
+    public function test_users_return_to_intended_page_after_login_with_redirect()
     {
         $user = User::factory()->create();
 
-        $this->get('/console/login?redirect=/hr/departements')->assertOk();
+        $this->get('/console/login?redirect=/users')->assertOk();
 
         $response = $this->post('/console/login', [
             'email' => $user->email,
@@ -54,25 +47,7 @@ class AuthenticationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect('/hr/departements');
-    }
-
-    public function test_users_can_authenticate_using_the_hr_login_screen()
-    {
-        $user = User::factory()->create();
-
-        $response = $this->post('/hr/login', [
-            'email' => $user->email,
-            'password' => 'password',
-        ]);
-
-        $this->assertAuthenticated();
-        $response->assertRedirect(route('hr.dashboard', absolute: false));
-    }
-
-    public function test_hr_project_redirects_guests_to_hr_login()
-    {
-        $this->get('/hr/dashboard')->assertRedirect('/hr/login');
+        $response->assertRedirect('/users');
     }
 
     public function test_users_can_not_authenticate_with_invalid_password()

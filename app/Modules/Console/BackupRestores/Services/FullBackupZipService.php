@@ -11,7 +11,7 @@ use ZipArchive;
 
 class FullBackupZipService
 {
-    private const VERSION = 3;
+    private const VERSION = 4;
 
     public function __construct(
         private readonly FullBackupArchiveValidator $archiveValidator,
@@ -43,7 +43,7 @@ class FullBackupZipService
                 'connection' => config('database.default'),
                 'name' => config('database.connections.'.config('database.default').'.database'),
             ],
-            'includes' => ['database.sql', 'storage_public', 'storage_dms_private'],
+            'includes' => ['database.sql', 'storage_public'],
             'integrity' => [
                 'database_sql_sha256' => $entryHashes['database.sql'],
                 'entries_sha256' => $entryHashes,
@@ -131,10 +131,6 @@ class FullBackupZipService
     private function storageFiles(): array
     {
         $files = $this->filesUnder(storage_path('app/public'), 'storage_public');
-        $files += $this->filesUnder(
-            storage_path('app/private/document-management'),
-            'storage_dms_private',
-        );
         ksort($files, SORT_STRING);
 
         return $files;
@@ -192,7 +188,6 @@ class FullBackupZipService
     {
         $targets = [
             'storage_public/' => storage_path('app/public'),
-            'storage_dms_private/' => storage_path('app/private/document-management'),
         ];
         $restored = 0;
 

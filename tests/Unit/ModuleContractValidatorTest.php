@@ -33,8 +33,8 @@ class ModuleContractValidatorTest extends TestCase
 
     public function test_contract_reports_missing_export_and_unknown_dependency(): void
     {
-        $this->writeModule('HR', 'Employees', dependencies: ['MissingModule']);
-        File::delete($this->root.'/HR/Employees/routes.php');
+        $this->writeModule('Inventory', 'Items', dependencies: ['MissingModule']);
+        File::delete($this->root.'/Inventory/Items/routes.php');
 
         $codes = collect(app(ModuleContractValidator::class)->validate())->pluck('code');
 
@@ -44,10 +44,10 @@ class ModuleContractValidatorTest extends TestCase
 
     public function test_contract_rejects_navigation_without_group_items_shape(): void
     {
-        $this->writeModule('HR', 'Contracts');
+        $this->writeModule('Operations', 'Contracts');
         File::put(
-            $this->root.'/HR/Contracts/navigation.php',
-            "<?php return [['group' => 'HR', 'title' => 'Contracts', 'url' => '/hr/contracts']];",
+            $this->root.'/Operations/Contracts/navigation.php',
+            "<?php return [['group' => 'Operations', 'title' => 'Contracts', 'url' => '/operations/contracts']];",
         );
 
         $codes = collect(app(ModuleContractValidator::class)->validate())->pluck('code');

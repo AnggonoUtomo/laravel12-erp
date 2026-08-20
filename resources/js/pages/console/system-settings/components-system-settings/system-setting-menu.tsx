@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Clock3, HeartPulse, KeyRound, ListFilter, Mail, Map, Palette, Power, Server, ShieldAlert } from 'lucide-react';
+import { Clock3, HeartPulse, KeyRound, ListFilter, Mail, Palette, Power, Server, ShieldAlert } from 'lucide-react';
 import type { ComponentType } from 'react';
 import type { SystemSettingSection } from '../types';
 
@@ -60,13 +60,6 @@ const menuItems: MenuItem[] = [
         description: 'Aktifkan mode perawatan dan secret bypass.',
         icon: Power,
         color: 'text-amber-500 dark:text-amber-400',
-    },
-    {
-        key: 'map',
-        title: 'Google Maps',
-        description: 'Simpan API Key dan Map ID untuk modul yang memakai peta.',
-        icon: Map,
-        color: 'text-emerald-500 dark:text-emerald-400',
     },
     {
         key: 'health',

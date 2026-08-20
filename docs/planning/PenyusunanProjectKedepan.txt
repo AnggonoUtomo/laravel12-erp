@@ -1,5 +1,0 @@
-Dokumen ini telah digantikan oleh README.md pada folder yang sama.
-
-Urutan: HR -> Attendance -> Payroll -> Accounting -> CRM -> Document Management.
-
-

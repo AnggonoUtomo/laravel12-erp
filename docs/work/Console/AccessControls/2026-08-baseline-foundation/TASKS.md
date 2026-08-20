@@ -13,5 +13,6 @@
 - [x] Migrasikan `Console.AuditLogs` ke DDD-lite dan perbarui semua consumer internal tanpa alias legacy.
 - [x] Migrasikan `Console.LoginActivities` ke DDD-lite dan perbarui semua consumer internal tanpa alias legacy.
 - [x] Migrasikan `Console.NotificationTemplates` ke DDD-lite dan perbarui semua consumer internal tanpa alias legacy.
+- [x] Migrasikan `Console.ActivityCenters` ke DDD-lite dan perbarui semua consumer internal tanpa alias legacy.
 - [ ] Migrasikan module system ke DDD-lite.
 - [ ] Validasi regresi dan dokumentasi module.

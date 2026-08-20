@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\User;
-use App\Modules\Console\ActivityCenters\Services\ActivityCenterService;
+use App\Modules\Console\ActivityCenters\Application\Services\ActivityCenterService;
 use App\Modules\Console\SystemSettings\Application\Services\SystemSettingService;
 use App\Modules\Console\UserManagements\Application\Services\UserImpersonationService;
 use App\Support\Modules\ModuleRegistry;

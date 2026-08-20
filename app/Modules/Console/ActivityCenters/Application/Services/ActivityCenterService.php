@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Console\ActivityCenters\Services;
+namespace App\Modules\Console\ActivityCenters\Application\Services;
 
 use App\Models\User;
 use App\Modules\Console\AuditLogs\Infrastructure\Models\AuditLog;

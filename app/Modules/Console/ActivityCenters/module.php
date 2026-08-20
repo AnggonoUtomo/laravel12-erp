@@ -1,6 +1,6 @@
 <?php
 
-use App\Modules\Console\ActivityCenters\Providers\ActivityCentersServiceProvider;
+use App\Modules\Console\ActivityCenters\ServiceProvider;
 
 return [
     'name' => 'ActivityCenters',
@@ -11,7 +11,7 @@ return [
     'version' => '1.0.0',
     'enabled' => true,
     'providers' => [
-        ActivityCentersServiceProvider::class,
+        ServiceProvider::class,
     ],
     'dependencies' => [],
     'exports' => [

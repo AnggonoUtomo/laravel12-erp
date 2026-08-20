@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Modules\Console\ActivityCenters\Http\Controllers;
+namespace App\Modules\Console\ActivityCenters\Presentation\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Console\ActivityCenters\Services\ActivityCenterService;
+use App\Modules\Console\ActivityCenters\Application\Services\ActivityCenterService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 

@@ -1,0 +1,7 @@
+{
+    "name": "ActivityCenters",
+    "namespace": "Console",
+    "title": "Activity Center",
+    "slug": "activity-centers",
+    "architecture": "ddd-lite"
+}

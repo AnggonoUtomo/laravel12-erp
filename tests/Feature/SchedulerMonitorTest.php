@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use App\Modules\Console\SchedulerMonitors\Services\SchedulerMonitorService;
+use App\Modules\Console\SchedulerMonitors\Application\Services\SchedulerMonitorService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;

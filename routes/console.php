@@ -1,6 +1,6 @@
 <?php
 
-use App\Modules\Console\SchedulerMonitors\Services\SchedulerMonitorService;
+use App\Modules\Console\SchedulerMonitors\Application\Services\SchedulerMonitorService;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;

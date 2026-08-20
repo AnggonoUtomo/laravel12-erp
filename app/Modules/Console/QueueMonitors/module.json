@@ -1,0 +1,7 @@
+{
+    "name": "QueueMonitors",
+    "namespace": "Console",
+    "title": "Queue Monitor",
+    "slug": "queue-monitors",
+    "architecture": "ddd-lite"
+}

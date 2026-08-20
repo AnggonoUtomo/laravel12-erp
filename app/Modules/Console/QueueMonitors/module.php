@@ -1,5 +1,7 @@
 <?php
 
+use App\Modules\Console\QueueMonitors\ServiceProvider;
+
 return [
     'name' => 'QueueMonitors',
     'project' => 'Console',
@@ -8,7 +10,9 @@ return [
     'description' => 'Monitoring queue, pending job, dan failed job.',
     'version' => '1.0.0',
     'enabled' => true,
-    'providers' => [],
+    'providers' => [
+        ServiceProvider::class,
+    ],
     'dependencies' => [],
     'exports' => [
         'routes' => true,

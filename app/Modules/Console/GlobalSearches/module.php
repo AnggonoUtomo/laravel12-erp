@@ -1,5 +1,7 @@
 <?php
 
+use App\Modules\Console\GlobalSearches\ServiceProvider;
+
 return [
     'name' => 'GlobalSearches',
     'project' => 'Console',
@@ -8,7 +10,7 @@ return [
     'description' => 'Command palette backend contract dan provider entity search read-only.',
     'version' => '1.0.0',
     'enabled' => true,
-    'providers' => [],
+    'providers' => [ServiceProvider::class],
     'dependencies' => [
         'Console.UserManagements',
     ],

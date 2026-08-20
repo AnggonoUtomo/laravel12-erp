@@ -1,5 +1,7 @@
 <?php
 
+use App\Modules\Console\SchedulerMonitors\ServiceProvider;
+
 return [
     'name' => 'SchedulerMonitors',
     'project' => 'Console',
@@ -8,7 +10,7 @@ return [
     'description' => 'Monitoring scheduler, heartbeat, dan eksekusi command terjadwal.',
     'version' => '1.0.0',
     'enabled' => true,
-    'providers' => [],
+    'providers' => [ServiceProvider::class],
     'dependencies' => [],
     'exports' => [
         'routes' => true,
